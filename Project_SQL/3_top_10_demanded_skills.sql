@@ -1,12 +1,12 @@
 /* Question: What are the most in-demand skills for data analysts?
 -- Join job postings to inner join table similar to query 
--- Identify the top 5 in-demand skills for a data analyst. 
+-- Identify the top 10 in-demand skills for a data analyst. 
 -- Focus on all job postings.
 -- Why? Retrieves the top skills with the highest demand in the job market,
         providing insights into the most valuable skills for job seekers.
 */
 
--- Top 5 in-demand skills for a data analyst 
+-- Top 10 in-demand skills for a data analyst 
 
 select 
     skills,
@@ -17,9 +17,9 @@ inner join skills_dim on skills_dim.skill_id=skills_job_dim.skill_id
 where job_title_short='Data Analyst'
 group by skills
 order by  count(skills_job_dim.job_id) DESC
-LIMIT 5;
+LIMIT 10;
 
--- Top 5 in-demand skills for a data analyst, Location : Anywhere (Remote)
+-- Top 10 in-demand skills for a data analyst, Location : Anywhere (Remote)
 
 select 
     skills,
@@ -30,9 +30,9 @@ inner join skills_dim on skills_dim.skill_id=skills_job_dim.skill_id
 where job_title_short='Data Analyst' AND job_location='Anywhere'
 group by skills
 order by  count(skills_job_dim.job_id) DESC
-LIMIT 5;
+LIMIT 10;
 
--- Top 5 in-demand skills for a data analyst, Location : India
+-- Top 10 in-demand skills for a data analyst, Location : India
 
 select 
     skills,
@@ -43,22 +43,4 @@ inner join skills_dim on skills_dim.skill_id=skills_job_dim.skill_id
 where job_title_short='Data Analyst' AND job_location='India'
 group by skills
 order by  count(skills_job_dim.job_id) DESC
-LIMIT 5;
-
-
-
------------------------------------------------
-select 
-    job_id,
-    job_title,
-    cd.name as company_name,
-    job_location,
-    job_schedule_type,
-    salary_year_avg,
-    job_posted_date
-FROM
-    job_postings_fact as jpf
-left join company_dim cd on cd.company_id=jpf.company_id
-where job_title_short='Data Analyst'
-order by salary_year_avg DESC
-limit 100
+LIMIT 10;
